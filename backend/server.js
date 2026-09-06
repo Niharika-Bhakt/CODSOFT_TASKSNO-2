@@ -8,13 +8,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'frontend')));
 
-// Catch-all route using regex to prevent PathError on Render
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
-mongoose.connect(process.env.MONGO_URI)
+
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
   console.log('MongoDB Connected Successfully');
   app.listen(PORT, () => {
